@@ -7,7 +7,7 @@
  * @author VAlferov
  */
 
-public class LocalConverter { //такое название для избежания возможных конфликтов с базовыми классами
+public class Converter { //такое название для избежания возможных конфликтов с базовыми классами
     public double getKilometersFromSteps(int steps) {
         return steps*75/100/1000; //последовательно переводим в сантимеры, метры и километры
     }

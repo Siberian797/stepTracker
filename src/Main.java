@@ -30,9 +30,9 @@ public class Main {
             System.out.println("3. Change a goal of steps per day");
             System.out.println("4. Exit");
 
-            String command = scanner.next();
+            String inputMenuItem = scanner.next();
 
-            switch (command) {
+            switch (inputMenuItem) {
                 case "1":
                     System.out.println("Enter a month (from 0)");
                     month = scanner.nextInt();
@@ -40,37 +40,17 @@ public class Main {
                     day = scanner.nextInt();
                     System.out.println("Enter a quantity of steps");
                     steps = scanner.nextInt();
-                    if (steps > 0) {
-                        System.out.println(stepTracker.setStepsPerDay(month, day, steps));
-                    }
-                    else {
-                        System.out.println("Inappropriate quantity of steps");
-                    }
+                    stepTracker.setStepsPerDay(month, day, steps);
                     break;
                 case "2":
                     System.out.println("Enter a month (from 0)");
                     month = scanner.nextInt();
-                    int[] daysSteps = stepTracker.getStatisticsForMonth(month);
-
-                    System.out.println("Quantity of completed steps by days:");
-                    for (int currentDay = 1; currentDay < daysSteps.length; currentDay++) {
-                        System.out.print(currentDay + " day: " + daysSteps[currentDay-1] + ", ");
-                    }
-                    System.out.println("30 day: " + daysSteps[29]);
-                    //при неточном количестве месяцев использовал бы substring, удалив последние два символа
-
-                    System.out.println("Common quantity of steps for a month: " + stepTracker.getTotalMonthSteps(month));
-                    System.out.println("Max steps in month: " + stepTracker.getMaxSteps(month));
-                    System.out.println("Average quantity of steps: " + stepTracker.getAverageMonthSteps(month));
-                    System.out.println("Covered kilometers: " + stepTracker.getCoveredDistance(month));
-                    System.out.println("Burned kilocalories: " + stepTracker.getBurnedKiloCalories(month));
-                    System.out.println("Best streak: " + stepTracker.getBestStreak(month));
-
+                    stepTracker.getStatisticsForMonth(month);
                     break;
                 case "3":
                     System.out.println("Enter new daily goal");
                     steps = scanner.nextInt();
-                    System.out.println(stepTracker.setTotalSteps(steps));
+                    stepTracker.setTotalSteps(steps);
                     break;
                 case "4":
                     return;

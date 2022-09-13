@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * <p>
  * Класс, обеспечивающий работу счётчика
@@ -13,28 +11,46 @@ public class StepTracker {
     private final int[][] yearStatistics = new int[12][30];
     private int totalSteps = 10000;
 
-    private final LocalConverter converter = new LocalConverter();
+    private final Converter converter = new Converter();
 
-    public String setTotalSteps(int steps) {
+    public void setTotalSteps(int steps) {
         if (steps > 0) {
             totalSteps = steps;
-            return "Daily goal was successfully updated";
+            System.out.println("Daily goal was successfully updated");
         }
         else {
-            return "Enter correct value";
+            System.out.println("Enter correct value");
         }
     }
 
-    public String setStepsPerDay(int month, int day, int steps) {
-        yearStatistics[month][day] = steps;
-        return "You successfully saved info about " + steps + " steps for " + day + "." + month;
+    public void setStepsPerDay(int month, int day, int steps) {
+        if (steps > 0) {
+            yearStatistics[month][day] = steps;
+            System.out.println("You successfully saved info about " + steps + " steps for " + day + "." + month);
+        }
+        else {
+            System.out.println("Inappropriate quantity of steps");
+        }
     }
 
-    public int[] getStatisticsForMonth(int month) {
-        return yearStatistics[month];
+    public void getStatisticsForMonth(int month) {
+        int[] daysSteps = yearStatistics[month];
+
+        System.out.println("Quantity of completed steps by days:");
+        for (int currentDay = 1; currentDay < daysSteps.length; currentDay++) {
+            System.out.print(currentDay + " day: " + daysSteps[currentDay-1] + ", ");
+        }
+        System.out.println("30 day: " + daysSteps[29]);
+
+        System.out.println("Common quantity of steps for a month: " + getTotalMonthSteps(month));
+        System.out.println("Max steps in month: " + getMaxSteps(month));
+        System.out.println("Average quantity of steps: " + getAverageMonthSteps(month));
+        System.out.println("Covered kilometers: " + getCoveredDistance(month));
+        System.out.println("Burned kilocalories: " + getBurnedKiloCalories(month));
+        System.out.println("Best streak: " + getBestStreak(month));
     }
 
-    public int getTotalMonthSteps(int month) {
+    private int getTotalMonthSteps(int month) {
         int steps = 0;
         for (int daySteps : yearStatistics[month]) {
             steps+=daySteps;
@@ -42,7 +58,7 @@ public class StepTracker {
         return steps;
     }
 
-    public double getAverageMonthSteps(int month) {
+    private double getAverageMonthSteps(int month) {
         int average = 0;
         for (int daySteps : yearStatistics[month]) {
             average+=daySteps;
@@ -50,15 +66,15 @@ public class StepTracker {
         return average/30;
     }
 
-    public double getCoveredDistance(int month) {
+    private double getCoveredDistance(int month) {
         return converter.getKilometersFromSteps(getTotalMonthSteps(month));
     }
 
-    public double getBurnedKiloCalories(int month) {
+    private double getBurnedKiloCalories(int month) {
         return converter.getKiloCaloriesFromSteps(getTotalMonthSteps(month));
     }
 
-    public int getBestStreak(int month) {
+    private int getBestStreak(int month) {
         int best = 0;
         int currentBest = 0;
         for (int daySteps : yearStatistics[month]) {
@@ -73,7 +89,7 @@ public class StepTracker {
         return best;
     }
 
-    public int getMaxSteps(int month) {
+    private int getMaxSteps(int month) {
         int max = 0;
         for (int daySteps : yearStatistics[month]) {
             if (daySteps > max) {
