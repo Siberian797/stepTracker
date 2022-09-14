@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 /**
  * <p>
  * Класс, обеспечивающий работу счётчика
@@ -11,9 +13,12 @@ public class StepTracker {
     private final int[][] yearStatistics = new int[12][30];
     private int totalSteps = 10000;
 
+    private final Scanner scanner = new Scanner(System.in);
     private final Converter converter = new Converter();
 
-    public void setTotalSteps(int steps) {
+    public void setTotalSteps() {
+        System.out.println("Enter new daily goal");
+        int steps = scanner.nextInt();
         if (steps > 0) {
             totalSteps = steps;
             System.out.println("Daily goal was successfully updated");
@@ -23,7 +28,13 @@ public class StepTracker {
         }
     }
 
-    public void setStepsPerDay(int month, int day, int steps) {
+    public void setStepsPerDay() {
+        System.out.println("Enter a month (from 0)");
+        int month = scanner.nextInt();
+        System.out.println("Enter a day (from 0)");
+        int day = scanner.nextInt();
+        System.out.println("Enter a quantity of steps");
+        int steps = scanner.nextInt();
         if (steps > 0) {
             yearStatistics[month][day] = steps;
             System.out.println("You successfully saved info about " + steps + " steps for " + day + "." + month);
@@ -33,8 +44,11 @@ public class StepTracker {
         }
     }
 
-    public void getStatisticsForMonth(int month) {
+    public void getStatisticsForMonth() {
+        int month = scanner.nextInt();
         int[] daysSteps = yearStatistics[month];
+
+        System.out.println("Enter a month (from 0)");
 
         System.out.println("Quantity of completed steps by days:");
         for (int currentDay = 1; currentDay < daysSteps.length; currentDay++) {

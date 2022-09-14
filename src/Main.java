@@ -19,10 +19,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         StepTracker stepTracker = new StepTracker();
 
-        int month;
-        int day;
-        int steps;
-
         while (true) {
             System.out.println("Choose an action:");
             System.out.println("1. Enter a quantity of steps for a concrete day");
@@ -34,23 +30,13 @@ public class Main {
 
             switch (inputMenuItem) {
                 case "1":
-                    System.out.println("Enter a month (from 0)");
-                    month = scanner.nextInt();
-                    System.out.println("Enter a day (from 0)");
-                    day = scanner.nextInt();
-                    System.out.println("Enter a quantity of steps");
-                    steps = scanner.nextInt();
-                    stepTracker.setStepsPerDay(month, day, steps);
+                    stepTracker.setStepsPerDay();
                     break;
                 case "2":
-                    System.out.println("Enter a month (from 0)");
-                    month = scanner.nextInt();
-                    stepTracker.getStatisticsForMonth(month);
+                    stepTracker.getStatisticsForMonth();
                     break;
                 case "3":
-                    System.out.println("Enter new daily goal");
-                    steps = scanner.nextInt();
-                    stepTracker.setTotalSteps(steps);
+                    stepTracker.setTotalSteps();
                     break;
                 case "4":
                     return;
